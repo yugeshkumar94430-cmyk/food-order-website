@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bluefork – Order food online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--blue:#1d3fbb;--blue-d:#13298a;--red:#e63a2e;--red-d:#c22a20;--bg:#f2f5fc;--card:#fff;--ink:#101a3d;--mute:#5b6690;--line:#dbe2f4;--tint:#e8edfb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--blue:#7f9bff;--blue-d:#a9bcff;--red:#ff6a5e;--red-d:#ff8a80;--bg:#0c1230;--card:#141c44;--ink:#eef1ff;--mute:#a0aad6;--line:#26306a;--tint:#1b2556}}
+:root[data-theme="dark"]{--blue:#7f9bff;--blue-d:#a9bcff;--red:#ff6a5e;--red-d:#ff8a80;--bg:#0c1230;--card:#141c44;--ink:#eef1ff;--mute:#a0aad6;--line:#26306a;--tint:#1b2556}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.5}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;margin:0;line-height:1.1}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--blue);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 20px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--blue);z-index:10}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem;margin-right:auto}
+.logo b{color:#ff8a80}
+.hbtn{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:99px;padding:7px 16px;font-weight:700}
+.hbtn.red{background:var(--red);border-color:var(--red)}
+.hbtn:hover{border-color:#fff}
+.hero{background:var(--blue);color:#fff;padding:28px 20px 44px;border-bottom:8px solid var(--red)}
+.hero div{max-width:980px;margin:auto}
+.hero h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:800;max-width:14ch}
+.hero p{max-width:46ch;opacity:.9;margin:12px 0 0}
+main{max-width:980px;margin:auto;padding:22px 20px 90px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px}
+.tab{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:7px 16px;font-weight:700;white-space:nowrap}
+.tab[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+:root[data-theme="dark"] .tab[aria-pressed=true]{color:#0c1230}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.pic{font-size:3.4rem;text-align:center;padding:18px 0;background:var(--tint)}
+.item:nth-child(3n+1) .pic{background:color-mix(in srgb,var(--red) 14%,var(--card))}
+.info{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.info h3{font-size:1.15rem}
+.info p{margin:0;color:var(--mute);font-size:.92rem;flex:1}
+.row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.price{font-weight:700;font-size:1.1rem;color:var(--blue)}
+.add{background:var(--red);color:#fff;border:0;border-radius:99px;padding:8px 16px;font-weight:700}
+.add:hover{background:var(--red-d)}
+dialog{border:0;border-radius:16px;padding:0;width:min(440px,calc(100vw - 24px));background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgba(8,16,60,.4)}
+dialog::backdrop{background:rgba(10,18,60,.55)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--blue);color:#fff}
+.dh h2{font-size:1.3rem}
+.x{background:none;border:0;color:#fff;font-size:1.6rem;line-height:1}
+.db{padding:18px 20px 20px}
+label{display:block;font-weight:700;font-size:.9rem;margin-top:12px}
+input{width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink);margin-top:4px}
+.btn{width:100%;margin-top:16px;background:var(--red);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:700}
+.btn:hover{background:var(--red-d)}
+.btn.alt{background:var(--blue);margin-top:8px}
+.link{background:none;border:0;color:var(--blue);font-weight:700;text-decoration:underline;padding:0}
+.err{color:var(--red);font-weight:700;min-height:1.2em;margin:10px 0 0;font-size:.92rem}
+.line{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.line span:first-child{font-size:1.6rem}
+.line .n{flex:1}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:50%;border:2px solid var(--blue);background:none;color:var(--blue);font-weight:700}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.2rem;margin-top:14px}
+.empty{color:var(--mute);text-align:center;padding:18px 0}
+.order{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.92rem}
+.order b{color:var(--blue)}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--red);color:#fff;border:0;border-radius:99px;padding:14px 22px;font-weight:800;box-shadow:0 8px 24px rgba(230,58,46,.45)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Blue<b>fork</b></div>
+  <button class="hbtn" id="ordersBtn" hidden>My orders</button>
+  <span id="hi" hidden></span>
+  <button class="hbtn red" id="authBtn">Log in</button>
+</header>
+<section class="hero"><div>
+  <h1>Hot food, ordered in a minute.</h1>
+  <p>Pick your meal, log in, and place your order. Pay when it arrives.</p>
+</div></section>
+<main>
+  <div class="tabs" id="tabs" role="group" aria-label="Menu categories"></div>
+  <div class="grid" id="grid"></div>
+</main>
+<button class="fab" id="cartBtn">Cart (<span id="cc">0</span>)</button>
+<div class="toast" id="toast" role="status"></div>
+
+<dialog id="authD"><div class="dh"><h2 id="authT">Log in</h2><button class="x" data-close aria-label="Close">×</button></div>
+<div class="db"><div id="nameRow" hidden><label for="fName">Full name</label><input id="fName" autocomplete="name"></div>
+<label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email">
+<label for="fPass">Password</label><input id="fPass" type="password" autocomplete="current-password" minlength="6">
+<p class="err" id="authErr"></p>
+<button class="btn" id="authGo">Log in</button>
+<p style="text-align:center;margin:14px 0 0"><span id="swapTxt">New here?</span> <button class="link" id="swap">Create an account</button></p></div></dialog>
+
+<dialog id="cartD"><div class="dh"><h2>Your cart</h2><button class="x" data-close aria-label="Close">×</button></div>
+<div class="db"><div id="cartBody"></div>
+<label for="addr">Delivery address</label><input id="addr" autocomplete="street-address">
+<p class="err" id="cartErr"></p>
+<button class="btn" id="placeBtn">Place order</button></div></dialog>
+
+<dialog id="ordD"><div class="dh"><h2>My orders</h2><button class="x" data-close aria-label="Close">×</button></div>
+<div class="db" id="ordBody"></div></dialog>
+
+<script>
+const MENU=[
+{id:1,c:"Burgers",e:"🍔",n:"Classic Beef Burger",d:"Grilled patty, cheddar, pickles, house sauce.",p:8.5},
+{id:2,c:"Burgers",e:"🍗",n:"Crispy Chicken Burger",d:"Buttermilk chicken, slaw, spicy mayo.",p:8},
+{id:3,c:"Burgers",e:"🥬",n:"Veggie Burger",d:"Chickpea patty, avocado, tomato.",p:7.5},
+{id:4,c:"Pizza",e:"🍕",n:"Margherita",d:"Tomato, mozzarella, fresh basil.",p:9},
+{id:5,c:"Pizza",e:"🌶️",n:"Spicy Pepperoni",d:"Pepperoni, chilli oil, mozzarella.",p:11},
+{id:6,c:"Pizza",e:"🍄",n:"Mushroom Truffle",d:"Roasted mushrooms, garlic cream.",p:12},
+{id:7,c:"Rice & noodles",e:"🍛",n:"Chicken Biryani",d:"Slow-cooked basmati rice with raita.",p:9.5},
+{id:8,c:"Rice & noodles",e:"🍜",n:"Veg Hakka Noodles",d:"Wok-tossed noodles and crisp vegetables.",p:7},
+{id:9,c:"Rice & noodles",e:"🍤",n:"Prawn Fried Rice",d:"Egg, spring onion, garlic prawns.",p:10},
+{id:10,c:"Drinks",e:"🥤",n:"Fresh Lime Soda",d:"Sweet or salted.",p:2.5},
+{id:11,c:"Drinks",e:"🧋",n:"Mango Lassi",d:"Thick yogurt drink with ripe mango.",p:3.5},
+{id:12,c:"Desserts",e:"🍰",n:"Chocolate Brownie",d:"Warm, with a scoop of vanilla.",p:4.5}];
+const $=s=>document.querySelector(s);
+const ls={get(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let cart=ls.get("bf_cart",{}),user=ls.get("bf_session",null),cat="All",mode="login";
+const money=n=>"$"+n.toFixed(2);
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1800)}
+async function hash(s){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return btoa(s)}}
+function drawTabs(){const cats=["All",...new Set(MENU.map(m=>m.c))];$("#tabs").innerHTML=cats.map(c=>`<button class="tab" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join("")}
+function drawMenu(){$("#grid").innerHTML=MENU.filter(m=>cat==="All"||m.c===cat).map(m=>`<article class="item"><div class="pic" aria-hidden="true">${m.e}</div><div class="info"><h3>${m.n}</h3><p>${m.d}</p><div class="row"><span class="price">${money(m.p)}</span><button class="add" data-a="${m.id}">Add to cart</button></div></div></article>`).join("")}
+function drawHeader(){$("#authBtn").textContent=user?"Log out":"Log in";$("#ordersBtn").hidden=!user;$("#hi").hidden=!user;if(user)$("#hi").textContent="Hi, "+user.name.split(" ")[0]}
+function count(){return Object.values(cart).reduce((a,b)=>a+b,0)}
+function drawCart(){
+  const ids=Object.keys(cart);$("#cc").textContent=count();
+  if(!ids.length){$("#cartBody").innerHTML='<p class="empty">Your cart is empty. Add something from the menu.</p>';$("#placeBtn").hidden=true;return}
+  $("#placeBtn").hidden=false;let t=0;
+  $("#cartBody").innerHTML=ids.map(id=>{const m=MENU.find(x=>x.id==id),q=cart[id];t+=m.p*q;return`<div class="line"><span aria-hidden="true">${m.e}</span><span class="n">${m.n}<br><small>${money(m.p)} each</small></span><span class="qty"><button data-q="${id}" data-d="-1" aria-label="Remove one">−</button>${q}<button data-q="${id}" data-d="1" aria-label="Add one">+</button></span></div>`}).join("")+`<div class="total"><span>Total</span><span>${money(t)}</span></div>`}
+function saveCart(){ls.set("bf_cart",cart);drawCart()}
+function openAuth(m){mode=m;const l=m==="login";$("#authT").textContent=l?"Log in":"Create account";$("#authGo").textContent=l?"Log in":"Create account";$("#nameRow").hidden=l;$("#swapTxt").textContent=l?"New here?":"Already have an account?";$("#swap").textContent=l?"Create an account":"Log in";$("#authErr").textContent="";$("#authD").showModal()}
+$("#tabs").onclick=e=>{const c=e.target.dataset.c;if(c){cat=c;drawTabs();drawMenu()}};
+$("#grid").onclick=e=>{const a=e.target.dataset.a;if(a){cart[a]=(cart[a]||0)+1;saveCart();toast("Added to cart")}};
+$("#cartBody").onclick=e=>{const id=e.target.dataset.q;if(!id)return;cart[id]+=+e.target.dataset.d;if(cart[id]<1)delete cart[id];saveCart()};
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+$("#cartBtn").onclick=()=>{drawCart();$("#cartErr").textContent="";$("#cartD").showModal()};
+$("#authBtn").onclick=()=>{if(user){user=null;ls.set("bf_session",null);drawHeader();toast("Logged out")}else openAuth("login")};
+$("#swap").onclick=()=>openAuth(mode==="login"?"signup":"login");
+$("#authGo").onclick=async()=>{
+  const email=$("#fEmail").value.trim().toLowerCase(),pass=$("#fPass").value,name=$("#fName").value.trim(),err=$("#authErr");
+  if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent="Enter a valid email address.";return}
+  if(pass.length<6){err.textContent="Password must be at least 6 characters.";return}
+  const users=ls.get("bf_users",{}),h=await hash(pass);
+  if(mode==="signup"){
+    if(!name){err.textContent="Enter your name.";return}
+    if(users[email]){err.textContent="That email already has an account. Log in instead.";return}
+    users[email]={name,h};ls.set("bf_users",users);
+  }else if(!users[email]||users[email].h!==h){err.textContent="Email or password is incorrect.";return}
+  user={email,name:users[email].name};ls.set("bf_session",user);
+  $("#authD").close();$("#fPass").value="";drawHeader();toast("Welcome, "+user.name.split(" ")[0]);
+};
+$("#placeBtn").onclick=()=>{
+  if(!user){$("#cartD").close();openAuth("login");toast("Log in to place your order");return}
+  const addr=$("#addr").value.trim();if(!addr){$("#cartErr").textContent="Enter a delivery address.";return}
+  const items=Object.keys(cart).map(id=>{const m=MENU.find(x=>x.id==id);return{n:m.n,q:cart[id],p:m.p}});
+  const total=items.reduce((a,i)=>a+i.p*i.q,0),orders=ls.get("bf_orders",[]);
+  orders.unshift({id:"BF"+Date.now().toString().slice(-6),email:user.email,items,total,addr,at:new Date().toLocaleString()});
+  ls.set("bf_orders",orders);cart={};saveCart();$("#cartD").close();toast("Order placed. Thank you!");
+};
+$("#ordersBtn").onclick=()=>{
+  const o=ls.get("bf_orders",[]).filter(x=>x.email===user.email);
+  $("#ordBody").innerHTML=o.length?o.map(x=>`<div class="order"><b>${x.id}</b> · ${x.at}<br>${x.items.map(i=>i.q+"× "+i.n).join(", ")}<br>${money(x.total)} · ${x.addr.replace(/</g,"&lt;")}</div>`).join(""):'<p class="empty">No orders yet.</p>';
+  $("#ordD").showModal()};
+drawTabs();drawMenu();drawHeader();drawCart();
+</script>
+</body>
+</html>
